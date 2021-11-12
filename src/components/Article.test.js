@@ -10,6 +10,7 @@ import { render, screen } from '@testing-library/react';
 const testArticle = {
     id: '1',
     headline: 'test',
+    createdOn: '2021-08-09T18:02:38-04:00',
     author: '',
     summary: 'test',
     body: 'test',
