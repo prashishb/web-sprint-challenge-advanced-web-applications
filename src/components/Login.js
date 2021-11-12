@@ -26,6 +26,7 @@ const Login = (props) => {
         localStorage.setItem('token', res.data.token);
         localStorage.setItem('username', res.data.username);
         localStorage.setItem('role', res.data.role);
+        props.loggedOn();
         props.history.push('/view');
       })
       .catch((err) => {

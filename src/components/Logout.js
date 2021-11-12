@@ -7,6 +7,7 @@ const Logout = (props) => {
         .post('/logout')
         .then((res) => {
           localStorage.removeItem('token');
+          props.loggedOut();
           props.history.push('/login');
         });
     }, []);

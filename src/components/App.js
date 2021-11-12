@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   BrowserRouter as Router,
   Switch,
@@ -15,16 +15,38 @@ import Login from './Login';
 import Logout from './Logout';
 
 const App = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    Boolean(localStorage.getItem('token'))
+  );
+
+  const loggedOn = () => {
+    setIsLoggedIn(true);
+  };
+
+  const loggedOut = () => {
+    setIsLoggedIn(false);
+  };
+
   return (
     <AppContainer>
       <LambdaHeader />
-      <Header />
+      <Header isLoggedIn={isLoggedIn} />
       <RouteContainer>
         <Switch>
           <PrivateRoute path='/view' component={View} />
-          <PrivateRoute path='/logout' component={Logout} />
-          <Route path='/login' component={Login} />
-          <Route exact path='/' component={Login} />
+          <PrivateRoute
+            path='/logout'
+            render={(props) => <Logout {...props} loggedOut={loggedOut} />}
+          />
+          <Route
+            path='/login'
+            render={(props) => <Login {...props} loggedOn={loggedOn} />}
+          />
+          <Route
+            exact
+            path='/'
+            render={(props) => <Login {...props} loggedOn={loggedOn} />}
+          />
         </Switch>
       </RouteContainer>
     </AppContainer>
